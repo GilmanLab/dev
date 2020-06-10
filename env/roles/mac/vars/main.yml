@@ -14,7 +14,10 @@ casks: ['multipass']
 py_packages: ['passlib', 'pyvmomi', 'git+https://github.com/vmware/vsphere-automation-sdk-python.git']
 
 # Personal repositories
-repositories: ['glab', 'vssh']
+personal_repositories: ['glab', 'vssh']
+
+# GilmanLab repositories
+glab_repositories: ['dev', 'deploy', 'images']
 
 # Misc scripts which need to be in ~/bin
 scripts: ['cluster']

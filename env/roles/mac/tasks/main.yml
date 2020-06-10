@@ -53,12 +53,24 @@
    path: ~/code
    state: directory
 
-- name: Private repositories exist
+- name: Lab directory exists
+  file:
+    path: ~/code/lab
+    state: directory
+
+- name: Personal repositories exist
   git:
    repo: "https://jmgilman:{{ github_token }}@github.com/jmgilman/{{ item }}.git"
-   dest: ~/code/{{ item }}
+   dest: "~/code/{{ item }}"
    update: no
-  with_items: "{{ repositories }}"
+  with_items: "{{ personal_repositories }}"
+
+- name: GilmanLab repositories exist
+  git:
+    repo: "https://github.com/GilmanLab/{{ item }}.git"
+    dest: "~/code/lab/{{ item }}"
+    update: no
+  with_items: "{{ glab_repositories }}"
 
 - name: SSH client configuration is up to date
   copy:
