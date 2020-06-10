@@ -1,0 +1,10 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- hosts: localhost
+  connection: local
+  vars:
+    tfcloud_token: "{{ lookup('hashivault', 'terraform/api', 'token') }}"
+  roles:
+    - dot
+    - mac

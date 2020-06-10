@@ -1,0 +1,18 @@
+# Set AWS env variables
+export AWS_ACCESS_KEY_ID="$(vault kv get -field=access_key secret/aws/lab)"
+export AWS_SECRET_ACCESS_KEY="$(vault kv get -field=secret_key secret/aws/lab)"
+export AWS_DEFAULT_REGION=us-west-2
+export AWS_DEFAULT_OUTPUT=json
+
+# Set Ansible vSphere variables for dynamic inventory
+export VMWARE_SERVER="vcenter.gilman.io"
+export VMWARE_USERNAME="$(vault kv get -field=username secret/vsphere/api)"
+export VMWARE_PASSWORD="$(vault kv get -field=password secret/vsphere/api)"
+
+# Set Terraform vSphere variables for connecting to vCenter
+export VSPHERE_SERVER="vcenter.gilman.io"
+export VSPHERE_USER="$(vault kv get -field=username secret/vsphere/api)"
+export VSPHERE_PASSWORD="$(vault kv get -field=password secret/vsphere/api)"
+
+# Pulumi
+export PULUMI_ACCESS_TOKEN="$(vault kv get -field=token secret/pulumi)"

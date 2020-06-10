@@ -1,0 +1,12 @@
+---
+# tasks file for dot
+- name: Dotfiles are up to date
+  copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+  with_items: "{{ dot_files }}"
+
+- name: Terraform user config exists
+  template:
+    src: terraformrc.j2
+    dest: "{{ ansible_env.HOME }}/.terraformrc"
