@@ -4,30 +4,70 @@
 # Needed to clone private Github repositories
 github_token: "{{ lookup('env','GITHUB_TOKEN') }}"
 
+# Tap list
+taps: [
+  'argoproj/tap',
+  'k14s/tap',
+]
+
 # Program lists
-languages: ['go', 'node', 'python3', 'ruby']
-dev_tools: ['hey', 'http-server', 'protobuf', 'poetry', 'duti', 'jq']
-lab_tools: ['consul',
-            'packer',
-            'terraform',
-            'vault',
-            'kubectl',
-            'minikube',
-            'helm',
-            'pulumi',
-            'hostess',
-            'awscli',
-            'argoproj/tap/argocd']
+languages: [
+  'go',
+  'node',
+  'python3',
+  'ruby',
+]
+
+dev_tools: [
+  'duti',
+  'hey',
+  'http-server',
+  'jq',
+  'poetry',
+  'protobuf',
+]
+
+lab_tools: [
+  'awscli',
+  'consul',
+  'hostess',
+  'lastpass-cli',
+  'packer',
+  'pulumi',
+  'terraform',
+  'vault',
+]
+
+kube_tools: [
+  'argoproj/tap/argocd',
+  'helm',
+  'kapp',
+  'kubectl',
+  'minikube',
+]
+
 casks: ['multipass']
 
 # Python packages
-py_packages: ['passlib', 'pyvmomi', 'git+https://github.com/vmware/vsphere-automation-sdk-python.git']
+py_packages: [
+  'kapitan',
+  'passlib',
+  'pyvmomi',
+  'git+https://github.com/vmware/vsphere-automation-sdk-python.git',
+]
 
 # Personal repositories
-personal_repositories: ['glab', 'vssh']
+personal_repositories: [
+  'glab',
+  'vssh',
+]
 
 # GilmanLab repositories
-glab_repositories: ['dev', 'deploy', 'images']
+glab_repositories: [
+  'deploy',
+  'dev',
+  'images'
+]
 
 # Misc scripts which need to be in ~/bin
 scripts: ['cluster']

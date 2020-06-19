@@ -5,9 +5,10 @@
   homebrew_tap:
     name: jmgilman/apps
 
-- name: Argo tap exists
+- name: Other taps exist
   homebrew_tap:
-    name: argoproj/tap
+    name: "{{ item }}"
+  with_items: "{{ taps }}"
 
 - name: Homebrew and packages are up to date
   homebrew:
@@ -47,6 +48,7 @@
    state: latest
 
 - name: Python packages are installed and up to date
+  become: yes
   pip:
    name: "{{ py_packages }}"
    state: latest
