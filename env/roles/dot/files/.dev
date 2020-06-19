@@ -1,0 +1,18 @@
+# Set AWS env variables
+export AWS_ACCESS_KEY_ID="$(lpass show GLab/AWS --field=id)"
+export AWS_SECRET_ACCESS_KEY="$(lpass show GLab/AWS --field=key)"
+export AWS_DEFAULT_REGION=us-west-2
+export AWS_DEFAULT_OUTPUT=json
+
+# Set Ansible vSphere variables for dynamic inventory
+export VMWARE_SERVER="vcenter.gilman.io"
+export VMWARE_USERNAME="$(lpass show GLab/vSphere --field=username)"
+export VMWARE_PASSWORD="$(lpass show GLab/vSphere --field=password)"
+
+# Set Terraform vSphere variables for connecting to vCenter
+export VSPHERE_SERVER="vcenter.gilman.io"
+export VSPHERE_USER="$(lpass show GLab/vSphere --field=username)"
+export VSPHERE_PASSWORD="$(lpass show GLab/vSphere --field=password)"
+
+# Pulumi
+export PULUMI_ACCESS_TOKEN="$(lpass show GLab/Pulumi --field=key)"
