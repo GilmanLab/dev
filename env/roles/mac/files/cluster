@@ -12,7 +12,8 @@ function help {
     echo "  config    Downloads the k3s config and changes context to it"
     echo "  down      Stops the cluster"
     echo "  purge     Deletes and permanently removes the cluster"
-    echo "  rancher   Installs rancher into the cluster"
+    echo "  argo      Install ArgoCD into the cluster"
+    echo "  rancher   Installs Rancher into the cluster"
     echo "  up        Brings up the kubernetes development stack"
 }
 
@@ -104,7 +105,7 @@ function unregister_dns {
 function change_context {
     echo "Setting context..."
     source ~/.bashrc
-    kubectl config use-context default
+    kubectl config use-context local
     checkForError $? "failed setting context!"
 }
 
@@ -170,10 +171,12 @@ function down {
 function config {
     echo "Copying k3s config..."
     IP=$(multipass info node1 | grep IPv4 | awk '{print $2}')
-    mkdir -p "$HOME/.kube/custom-contexts/k3s"
-    multipass exec node1 sudo cat /etc/rancher/k3s/k3s.yaml > "$HOME/.kube/custom-contexts/k3s/config.yml"
+    mkdir -p "$HOME/.kube/custom-contexts/local"
+    multipass exec node1 sudo cat /etc/rancher/k3s/k3s.yaml > "$HOME/.kube/custom-contexts/local/config.yml"
     checkForError $? "failed copying k3s config!"
-    sed -i '' "s/127.0.0.1/$IP/" "$HOME/.kube/custom-contexts/k3s/config.yml"
+    sed -i '' "s/127.0.0.1/$IP/" "$HOME/.kube/custom-contexts/local/config.yml"
+    sed -i '' "s/^  name: default/  name: local/" "$HOME/.kube/custom-contexts/local/config.yml"
+    sed -i '' "s/^    cluster: default/    cluster: local/" "$HOME/.kube/custom-contexts/local/config.yml"
 
     change_context
 
@@ -242,6 +245,33 @@ function rancher {
     echo "Done!"
 }
 
+function argo {
+    change_context
+
+    echo "Deploying ArgoCD..."
+    kubectl create namespace argocd
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    sleep 15
+
+    echo "Patching in load balancer..."
+    kubectl patch svc argocd-server -n argocd --type='json' -p='[{"op": "replace", "path": "/spec/ports/0/port", "value":8080}]'
+    kubectl patch svc argocd-server -n argocd --type='json' -p='[{"op": "replace", "path": "/spec/ports/1/port", "value":4443}]'
+    kubectl patch svc argocd-server -n argocd --type='json' -p='[{"op": "replace", "path": "/spec/type", "value":"LoadBalancer"}]'
+    sleep 5
+
+    IP=$(kubectl get service argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].ip')
+    echo "Registering argo.localdev in /etc/hosts..."
+    sudo hostess add argo.localdev ${IP}
+
+    echo "Logging in..." # 69422
+    password=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)
+    argocd login argo.localdev:8080 --username admin --password ${password} --insecure
+
+    echo "Please update the password..."
+    echo "Current password: $password"
+    argocd account update-password
+}
+
 function purge {
     for i in $(seq ${NUM_NODES}); do
         delete_node ${i}
@@ -272,6 +302,9 @@ purge)
     ;;
 config)
     config
+    ;;
+argo)
+    argo
     ;;
 rancher)
     rancher

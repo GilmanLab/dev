@@ -47,6 +47,7 @@ mkdir -p "${CUSTOM_KUBE_CONTEXTS}"
 
 OIFS="$IFS"
 IFS=$'\n'
+unset KUBECONFIG
 for contextFile in `find "${CUSTOM_KUBE_CONTEXTS}" -type f -name "*.yml"`
 do
     export KUBECONFIG="$contextFile:$KUBECONFIG"

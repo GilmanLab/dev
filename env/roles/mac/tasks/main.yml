@@ -5,6 +5,10 @@
   homebrew_tap:
     name: jmgilman/apps
 
+- name: Argo tap exists
+  homebrew_tap:
+    name: argoproj/tap
+
 - name: Homebrew and packages are up to date
   homebrew:
    update_homebrew: yes
