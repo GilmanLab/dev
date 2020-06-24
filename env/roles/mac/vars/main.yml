@@ -29,6 +29,7 @@ dev_tools: [
 
 lab_tools: [
   'awscli',
+  'bash-completion',
   'consul',
   'hostess',
   'lastpass-cli',
