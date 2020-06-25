@@ -31,9 +31,13 @@ lab_tools: [
   'awscli',
   'bash-completion',
   'consul',
+  'docker-completion',
+  'docker-compose-completion',
   'hostess',
   'lastpass-cli',
   'packer',
+  'packer-completion',
+  'pip-completion',
   'pulumi',
   'terraform',
   'vault',
@@ -43,7 +47,9 @@ kube_tools: [
   'argoproj/tap/argocd',
   'helm',
   'kapp',
+  'krew',
   'kubectl',
+  'kubectx',
   'minikube',
 ]
 

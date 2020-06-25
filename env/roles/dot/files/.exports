@@ -48,3 +48,6 @@ export PACKER_CACHE_DIR=/tmp/packer
 
 # Lastpass CLI
 LPASS_AGENT_TIMEOUT=86400
+
+# Krew
+PATH="${PATH}:${HOME}/.krew/bin"

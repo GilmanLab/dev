@@ -1,6 +1,7 @@
 ---
 # vars file for dot
 dot_files:
+  - .aliases
   - .bash_prompt
   - .bashrc
   - .dev
