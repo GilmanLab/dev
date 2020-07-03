@@ -35,6 +35,7 @@ lab_tools: [
   'docker-compose-completion',
   'hostess',
   'lastpass-cli',
+  'mkdocs',
   'packer',
   'packer-completion',
   'pip-completion',
