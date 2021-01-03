@@ -19,6 +19,7 @@ languages: [
 ]
 
 dev_tools: [
+  'cookiecutter',
   'duti',
   'hey',
   'http-server',

@@ -164,3 +164,8 @@ function o() {
 function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+
+# Create a bash script using a cookiecutter template
+cbash() {
+    cookiecutter -f https://github.com/TjWallas/bash-cookiecutter
+}
