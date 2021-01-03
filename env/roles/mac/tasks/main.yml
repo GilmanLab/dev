@@ -15,10 +15,6 @@
    update_homebrew: yes
    upgrade_all: yes
 
-- name: Homebrew casks are up to date
-  homebrew_cask:
-    upgrade: yes
-
 - name: Custom apps installed
   homebrew:
    name: vssh
@@ -36,10 +32,6 @@
 - name: Lab tools installed
   homebrew:
    name: "{{ lab_tools }}"
-
-- name: Casks installed
-  homebrew_cask:
-    name: "{{ casks }}"
 
 - name: Pip is up to date
   pip:

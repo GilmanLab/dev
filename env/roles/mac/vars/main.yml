@@ -55,10 +55,9 @@ kube_tools: [
   'minikube',
 ]
 
-casks: ['multipass']
-
 # Python packages
 py_packages: [
+  'ansible-modules-hashivault',
   'kapitan',
   'passlib',
   'pyvmomi',
